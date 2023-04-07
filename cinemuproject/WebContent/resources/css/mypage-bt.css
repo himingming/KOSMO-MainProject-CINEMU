@@ -1,0 +1,15 @@
+/*mypage-bt CSS */
+.mypage-paging ul {
+	padding-top: 20px;
+	text-align: center;
+	vertical-align: top;
+}
+
+.mypage-paging ul li a {
+	border: none;
+	color: #627581;
+}
+
+.mypage-paging ul .active a {
+	background-color: #627581;
+}

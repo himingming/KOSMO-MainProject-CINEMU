@@ -1,0 +1,193 @@
+/*전체영화 CSS */
+
+
+/*전체영화리스트*/
+.container>h3 {
+   padding: 40px 0 0 20px;
+   font-weight: bolder;
+}
+
+.movie_chart>div>div {
+   padding-top: 5%;
+}
+
+.allmovie {
+   overflow: hidden;
+}
+
+.container>tab {
+   border-bottom: none;
+}
+
+.allmovie>div {
+   border: none;
+}
+
+.chart_cont1 {
+   padding: 0;
+   text-align: center;
+   display: block;
+   position: relative;
+   overflow: hidden;
+}
+
+.allmovie>div>div>div {
+   display: inline-table;
+   width: 300px;
+   height: 590px;
+   margin: 46px
+}
+
+.allmovie>div>div>div :last-child {
+   margin-right: 0;
+}
+
+.wrap {
+   margin: 0;
+   text-align: center;
+   width: 300px;
+   position: relative;
+   overflow: hidden;
+}
+
+.mvinfor {
+   line-height: 2;
+   color: white;
+   position: absolute;
+   left: 50%;
+   transform: translateX(-50%);
+   top: 30px;
+   height: 120px;
+   z-index: 1;
+}
+
+.mvinfor .mstory {
+   font-size: 14px;
+   text-align: center;
+   padding: 20px;
+   z-index: 2;
+   overflow: hidden;
+   display: none; /*디스플레이 none으로 변경*/
+   margin: 10px;
+}
+
+.wrap:hover .mvinfor p {
+   display: inline-block;
+   padding: 0px;
+   margin: 0;
+}
+
+.wrap:hover .mimg {
+   filter: brightness(20%);
+   position: static;
+}
+
+.allmovie>div>div>div .poster {
+   overflow: hidden;
+   position: relative;
+}
+
+.allmovie>div>div>div .poster img {
+   display: block;
+   width: 300px;
+   height: 400px;
+   text-align: center;
+   margin: 0;
+   z-index: 2;
+   border-radius: 5px;
+}
+
+.allmovie>div>div>div .poster .mx {
+   position: absolute;
+   top: 17px;
+   right: 17px;
+}
+
+.allmovie>div>div>div .infor {
+   background: #fff;
+   padding: 17px 0;
+}
+
+.allmovie>div>div>div .infor h3 {
+   color: #333;
+   font-size: 30px;
+   font-weight: 700;
+   text-align: center;
+   margin: 5px;
+}
+
+.allmovie>div>div>div .infor img {
+   width: 31px;
+   margin-bottom: 5px;
+}
+
+}
+.allmovie>div>div>div .infor h3 strong {
+   padding-left: 0px;
+   margin: 1%;
+   display: inline-flex;
+   text-align: center;
+   height: 50px;
+   display: inline-flex;
+}
+
+.allmovie>div>div>div .infor .infor_btn a {
+   display: block;
+   float: left;
+   width: 85%;
+   margin-left: 6%;
+   text-align: center;
+   background: #263343;
+   color: #cacaca;
+   font-size: 18px;
+   padding: 14px 0;
+   text-decoration: none;
+}
+
+.allmovie .infor strong {
+   margin-right: 2%;
+}
+
+.allmovie .infor .percent {
+   border-right: 1px solid #c0c0c0;
+   padding-right: 15px;
+}
+
+.allmovie .infor strong a {
+   margin-right: 2%;
+   color: #666666;
+   font-size: 14px;
+}
+
+.allmovie .infor strong span {
+   color: #333333;
+   font-size: 14px;
+   font-weight: normal;
+   margin-left: 5px;
+}
+
+.allmovie>div>div>div .infor .like-btn {
+   display: inline-block;
+   text-align: center;
+   background: #263343;
+   color: #cacaca;
+   font-size: 18px;
+   padding: 9px 0;
+   border-radius: 5px;
+   width: 30%;
+   margin: 20px 0;
+}
+
+.allmovie>div>div>div .infor .infor_btn {
+   display: inline-grid;
+   overflow: hidden;
+   border-radius: 5px;
+   text-align: center;
+   margin: 20px 0;
+   width: 100%;
+   height: 45px;
+}
+
+.allmovie>div>div>div .infor .infor_btn a :last-child {
+   margin-right: 0;
+}

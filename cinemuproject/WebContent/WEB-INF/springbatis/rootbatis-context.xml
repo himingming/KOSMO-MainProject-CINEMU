@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!-- DataSource 설정 및 MyBatis설정  -->
+<!-- DataSource : JNDI -->
+<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+<property name="jndiName" value="java:comp/env/jdbc/myora"/>
+</bean>
+<!-- MyBatis  SqlSessionFactoryBean에서 설정을 한다.-->
+<bean id="factoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+<property name="dataSource" ref="dataSource"/>
+<property name="configLocation" value="classpath:movie/pak/config/config.xml"/>
+<property name="mapperLocations" value="classpath*:movie/pak/mapper/*.xml"/>
+</bean>
+
+<!--  Spring 제공 하는 SqlSessionTemplate -->
+<bean id="ss" class="org.mybatis.spring.SqlSessionTemplate">
+<constructor-arg ref="factoryBean"/>
+</bean>
+<!-- DataSource 설정 및 MyBatis설정  끝
+<bean id="membeDao" class="kr.co.kosmo.mvc.dao.MemberDao">
+<property name="ss" ref="ss"></property>
+</bean>
+-->
+
+<!-- fileupload를 위한 resolver 등록 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+</beans>

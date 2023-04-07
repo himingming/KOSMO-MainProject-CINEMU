@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="query">
+
+   <select id="movie" parameterType="String" resultType="muvo">
+      select
+      mno,mimg,
+      <![CDATA[replace(mname,#{searchValue},'<span style="color:#444">${searchValue}</span>')mname]]>
+      from movieup where
+      mname like '%'||#{searchValue}||'%' or
+      mdirec like
+      '%'||#{searchValue}||'%' or
+      mstory like '%'||#{searchValue}||'%' or
+      mactor like
+      '%'||#{searchValue}||'%'
+   </select>
+
+   <select id="moviecomm" parameterType="String" resultType="mcvo">
+      select commno,mno, mgood, 
+      <![CDATA[ replace(comm,#{searchValue},'<span style="color:#444;">${searchValue}</span>')comm,]]>
+      commdate from (
+      select rownum rn,commno, mno,mgood,comm,commdate
+      from
+      moviecomm order by COMMDATE desc, rn DESC)
+      where comm like
+      '%'||#{searchValue}||'%'
+   </select>
+
+   <select id="qaboard" parameterType="String" resultType="qvo">
+      select no,
+      <![CDATA[ replace(subject,#{searchValue},'<span style="color:#444">${searchValue}</span>')subject,]]>
+      mdate from (
+      select rownum rn, no, subject, content, mdate from qaboard
+      order by mdate desc, no desc
+      ) where
+      subject like
+      '%'||#{searchValue}||'%'
+      or
+      content like '%'||#{searchValue}||'%'
+   </select>
+
+   <!-- and rn between 10 and 30; -->
+   <!-- 랜덤 영화이름 출력 -->
+   <select id="random" resultType="String">
+      select mname from (select rownum
+      rn, mname from movieup sample(20))
+      where rn=1
+   </select>
+
+   <!-- 검색 수 출력 -->
+   <select id="cntmap" parameterType="String" resultType="map">
+      select
+      'mcnt' as class, count(mname) cnt from movieup
+      where mname like
+      '%'||#{searchValue}||'%'
+      or mstory like '%'||#{searchValue}||'%'
+      or
+      mactor like '%'||#{searchValue}||'%'
+      or mdirec like
+      '%'||#{searchValue}||'%'
+      union all
+
+      select 'ccnt',count(comm) from moviecomm
+      where comm like
+      '%'||#{searchValue}||'%'
+      union all
+
+      select 'qcnt', count(subject) from qaboard
+      where subject like '%'||#{searchValue}||'%'
+      or content like
+      '%'||#{searchValue}||'%'
+   </select>
+
+   <select id="movpg" parameterType="pgSvo" resultType="muvo">
+      select mno,mimg,mtype, SUBSTR(mstartday,0,4) mstartday,
+      <![CDATA[replace(mname,#{searchValue},'<span style="color:#444">${searchValue}</span>')mname]]>
+      from (
+      select rownum rn,a.mno,a.mimg,a.mtype, a.mstartday, a.mname from (
+      select rownum
+      rn,mno,mimg,mtype,mstartday,mname from movieup
+      where mname like '%'||#{searchValue}||'%'
+      or mdirec like
+      '%'||#{searchValue}||'%'
+      or mstory like '%'||#{searchValue}||'%'
+      or mactor like '%'||#{searchValue}||'%' order by rn desc)a
+      ) where rn
+      between #{begin} and #{end}
+   </select>
+
+   <select id="commpg" parameterType="pgSvo" resultType="mcvo">
+      select commno, mno, mgood, 
+<![CDATA[ replace(comm,#{searchValue},'<span style="color:#444">${searchValue}</span>')comm,]]>
+      commdate from (
+      select rownum rn,commno, mno,mgood,comm,commdate
+      from(select rownum rn,commno, mno,mgood,comm,commdate
+      from moviecomm
+      where comm like '%'||#{searchValue}||'%'
+      order by commdate desc, rn
+      desc) a ) where rn between #{begin} and #{end}
+   </select>
+
+
+   <select id="qapg" parameterType="pgSvo" resultType="qvo">
+      select no, mdate,
+<![CDATA[replace(subject,#{searchValue},'<span style="color:#444">${searchValue}</span>')subject]]>
+      from (
+      select rownum rn,a.no,a.subject,a.mdate from (
+      select no,subject,content,mdate from qaboard
+      where subject like '%'||#{searchValue}||'%'
+      or content like '%'||#{searchValue}||'%'
+      order by no desc) a
+      )where rn between #{begin} and #{end}
+   </select>
+
+</mapper>

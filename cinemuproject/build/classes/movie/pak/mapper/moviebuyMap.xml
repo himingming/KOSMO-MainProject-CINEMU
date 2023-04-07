@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="moviebuy">
+	<!-- 수정 있음 상영관 리스트 삭제 & mstarttime 들어간 것 삭제!!! -->
+
+	<!-- 예매 시 영화 리스트 필요하다 -->
+	<select id="moviename" resultType="muvo">
+		select mno,mname, mage, mimg from movieup
+	</select>
+
+
+	<!-- 예매 / 기본 영화리스트 상영일자별 영화 뽑기 -->
+	<select id="daysmovie" parameterType="String" resultType="muvo">
+		select mno,mimg,mname,mage from movieup
+		<where> <!-- mapper에 where절이 없어도 <where> 통해서 choose문 통해서 두가지 조건을 만들어줌 조건이 성립하지 않아도 
+				mapper절은 성립해서 데이터가 들어갈 수 있다. -->
+			<choose>
+				<when test="mendday != null">
+                  <![CDATA[replace(mendday,'-','')>=#{mendday}]]>
+				</when>
+			</choose>
+		</where>
+	</select>
+
+	<!-- 상영관 리스트 뽑기 -->
+	<select id="theatername" resultType="thvo">
+		SELECT DISTINCT theater_name FROM theater
+	</select>
+
+      <!-- 상영시간표 / 영화관 출력 -->
+   <select id="tmplace" parameterType="String" resultType="thvo">
+      select
+      distinct theater_name from theater
+   </select>
+
+   <!-- 예매 / 기본 영화리스트 상영일자별 영화 뽑기 -->
+   <select id="daysmlist" parameterType="hashmap" resultMap="muvoresult">
+select mp.mname,mp.mage,sc.start_time,sc.end_time,sc.theater_id from movieup mp, screening sc, theater th 
+
+<where>
+<choose>
+<when test="theater_name != null and mendday == null">mp.mno=sc.mno and sc.theater_id = th.theater_id and theater_name=#{theater_name} </when>
+
+<when test="theater_name != null and mendday != null">
+mp.mno=sc.mno and sc.theater_id = th.theater_id and 
+<![CDATA[mendday>=#{mendday}]]>and theater_name=#{theater_name} 
+</when>
+
+<otherwise>mp.mno=sc.mno and sc.theater_id = th.theater_id </otherwise>
+
+</choose>
+</where>
+</select>
+
+<resultMap id="muvoresult" type="muvo">
+<result column="mno" property="mno"/>
+<result column="mname" property="mname"/>
+<result column="mage" property="mage"/>
+<collection resultMap="timevoresult" property="screenlist" ofType="timevo" javaType="java.util.List"> </collection>
+</resultMap>
+
+<resultMap id="timevoresult" type="timevo">
+<result column="start_time" property="start_time"/>
+<result column="end_time" property="end_time"/>
+<result column="theater_id" property="theater_id"/>
+</resultMap>
+   
+   
+  <!-- 상영관 theater_no 리스트 뽑기 ex) 가산점 : 1관  -->
+<select id="theaterNo" resultType="thvo" parameterType="String">
+    SELECT theater_no, theater_id FROM theater WHERE theater_name = #{theater_name}
+</select>
+
+<!-- theater_id에 해당하는 상영관의 상영 시간 리스트를 가져오는 쿼리
+<select id="theaterTime" resultType="timevo" parameterType="map">
+  SELECT START_TIME, END_TIME
+  FROM screening
+  WHERE theater_id = #{theater_id} and mno=#{mno}
+</select>
+ -->
+<!-- 상영시간에 따라 상영일정 리스트 가져오는 ResultMap -->
+<resultMap type="timevo" id="screeningTimeResultMap">
+  <id property="screening_id" column="screening_id"/>
+  <result property="theater_id" column="theater_id"/>
+  <result property="mno" column="mno"/>
+  <result property="start_time" column="start_time"/>
+  <result property="end_time" column="end_time"/>
+  
+    <collection property="movie" javaType="java.util.List" ofType="muvo">
+    <result property="mname" column="mname"/>
+    <result property="mage" column="mage"/>
+    </collection>
+</resultMap>
+
+<select id="ScreeningTime" resultMap="screeningTimeResultMap" parameterType="map">
+  SELECT 
+    s.screening_id, 
+    s.theater_id, 
+    s.mno, 
+    s.start_time, 
+    s.end_time,
+    m.mname,
+    m.mage
+  FROM 
+    screening s
+    JOIN movieup m ON s.mno = m.mno
+  WHERE 
+    s.theater_id = #{theater_id}
+    AND s.mno=#{mno}
+</select>
+
+<!-- 해당 영화관의 좌석 정보를 가져옴 -->
+<select id="getSeatInfo" parameterType="map" resultType="svo">
+    SELECT 
+        COUNT(*) AS total_seats, 
+        SUM(CASE WHEN BOOKED = 1 THEN 1 ELSE 0 END) AS booked_seats, 
+        COUNT(*) - SUM(CASE WHEN BOOKED = 1 THEN 1 ELSE 0 END) AS remaining_seats
+    FROM 
+        SEAT
+    WHERE 
+       theater_id = #{theater_id}
+       AND screening_id = #{screening_id}
+</select>
+   
+
+</mapper>

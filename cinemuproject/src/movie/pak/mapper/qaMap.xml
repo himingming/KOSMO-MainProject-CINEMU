@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 수정 없음 -->
+<!-- 게시판 작성을 위한 맵  -->
+<mapper namespace="qaboard">
+	<insert id="add" parameterType="qvo">
+		insert into qaboard
+		values(QABOARD_SEQ.nextval,#{writer},#{subject},#{content},sysdate)
+	</insert>
+
+	<!-- 검색 결과 전체의 데이터 로우(게시글) 갯수를 추출 -->
+	<select id="searchCount" resultType="int" parameterType="pgSvo">
+		select count(*) from qaboard
+		<if test="searchValue != null and searchType != null">
+			<where> <!-- mapper에 where절이 없어도 <where> 통해서 choose문 통해서 두가지 조건을 만들어줌 조건이 성립하지 않아도 mapper절은 성립해서 데이터가 들어갈 수 있다.   -->
+				<choose>
+					<when test="searchType == 1">
+						writer like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 2">
+						subject like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+	</select>
+
+	<!-- 조건에 만족한 컬럼들의 검색 결과 출력. 단, 출력된 값의 '검색 키워드'가 브라우저 상에서 색깔이 드러나게 설정-->
+	<select id="listSearchPage1" resultType="qvo"
+		parameterType="pgSvo">
+		select no,
+		<!-- 여기부터 -->
+		<if test="searchValue != null and searchType != null">
+			<choose>
+				<when test="searchType == 3">
+		<![CDATA[ replace(writer,#{searchValue},'<span style="color:green">${searchValue}</span>')writer,
+		replace(subject,#{searchValue},'<span style="color:green">${searchValue}</span>')subject]]>
+				</when>
+
+				<when test="searchType == 1">
+		<![CDATA[ replace(writer,#{searchValue},'<span style="color:red">${searchValue}</span>')writer, subject]]>
+				</when>
+
+				<otherwise>
+		<![CDATA[ writer, replace(subject,#{searchValue},'<span style="color:red">${searchValue}</span>')subject ]]>
+				</otherwise>
+			</choose>
+		</if>
+		<if test="searchType == null">
+			writer, subject
+		</if>
+		<!-- 여기까지 -->
+		,content,mdate from (
+		select rownum
+		r_num,a.no,a.writer,a.subject,a.content,a.mdate from (
+		select
+		no,writer,subject,content,mdate from qaboard
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						writer like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 2">
+						subject like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 3">
+						writer like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+		order by no desc
+		)a
+		)where r_num between #{begin} and #{end}
+	</select>
+
+	<select id="qadetail" parameterType="int" resultType="qvo">
+		select
+		no,writer,subject,content,mdate from qaboard where no=#{no}
+	</select>
+
+	<update id="qaupdate" parameterType="qvo">
+		update qaboard set
+		subject=#{subject}, content=#{content} where no=#{no}
+	</update>
+
+	<delete id="qadelete" parameterType="int">
+		delete from qaboard where
+		no=#{no}
+	</delete>
+	
+	<!-- 댓글 시작  -->
+	
+	<insert id="addcomm" parameterType="qcvo">
+	      insert INTO qaboardcomm
+      values(qaboardcomm_seq.nextVal,#{mcode},#{mwriter},#{mcontent},sysdate)
+	</insert>
+	
+	<select id="listcomm" resultType="qcvo" parameterType="int">
+	select commno,mcode,mwriter,mcontent,mregdate from qaboardcomm 
+	where mcode=#{mcode} order by 1 desc
+	</select>
+	
+<update id="upcomm" parameterType="qcvo">
+   update qaboardcomm set mcontent=#{mcontent} where commno=#{commno}
+</update>
+
+<delete id="delcomm" parameterType="int">
+delete from qaboardcomm where commno=#{commno}
+</delete>
+
+<select id="delno" parameterType="int" resultType="int">
+select mcode from qaboardcomm where commno=#{commno}
+</select>
+
+<!-- 게시판 검색/페이지/댓글갯수 -->
+<select id="listSearchPage" resultType="qvo"
+      parameterType="pgSvo">
+      select no,
+      <!-- 여기부터 -->
+      <if test="searchValue != null and searchType != null">
+         <choose>
+            <when test="searchType == 3">
+      <![CDATA[ replace(writer,#{searchValue},'<span style="color:green">${searchValue}</span>')writer,
+      replace(subject,#{searchValue},'<span style="color:green">${searchValue}</span>')subject]]>
+            </when>
+
+            <when test="searchType == 1">
+      <![CDATA[ replace(writer,#{searchValue},'<span style="color:red">${searchValue}</span>')writer, subject]]>
+            </when>
+
+            <otherwise>
+      <![CDATA[ writer, replace(subject,#{searchValue},'<span style="color:red">${searchValue}</span>')subject ]]>
+            </otherwise>
+         </choose>
+      </if>
+      <if test="searchType == null">
+         writer, subject
+      </if>
+      <!-- 여기까지 -->
+      , content, mdate, cnt from (select rownum rn, a.* from
+      (select q.no,
+      q.writer, q.subject, q.content, q.mdate, count(c.mcode)cnt
+      from qaboard
+      q, qaboardcomm c
+      where q.no = c.mcode(+)
+      group by q.no, q.writer,
+      q.subject, q.content, q.mdate order by no desc)a )
+      <where>
+         <choose>
+            <when test="searchType == 1">
+               rn between #{begin} and #{end} and writer like '%'||
+               #{searchValue} ||'%'
+            </when>
+            <when test="searchType == 2">
+               rn between #{begin} and #{end} and subject like
+               '%'|| #{searchValue} ||'%'
+            </when>
+            <otherwise>
+               rn between #{begin} and #{end}
+            </otherwise>
+         </choose>
+      </where>
+   </select>
+	<!-- 댓글 끝 -->
+	
+		<!-- 이메일 연동 mapper -->
+
+	<select id="linkedmail" parameterType="int" resultMap="qcnlog">
+		select
+		l.lemail, l.lname, a.content, a.subject from login l, (
+		select q.content,q.writer,q.mdate, q.subject from qaboard q where
+		q.no=#{no}) a where l.lid = a.writer
+	</select>
+
+	<resultMap type="mvo" id="qcnlog">
+		<result property="lemail" column="lemail" />
+		<result property="lname" column="lname" />
+		<collection property="qnaboard" javaType="java.util.List"
+			resultMap="qcnemail" ofType="qvo" />
+	</resultMap>
+
+	<resultMap type="qvo" id="qcnemail">
+		<result property="content" column="content" />
+		<result property="subject" column="subject" />
+	</resultMap>
+
+	<!-- 이메일 연동 끝 -->
+	
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- tiles 제외 -->
+	<definition name="empty"
+		template="/WEB-INF/template/default/empty.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/template/default/header.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/template/default/menu.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/template/default/footer.jsp" />
+	</definition>
+
+	<definition name="index/index" extends="empty">
+		<put-attribute name="body"
+			value="/WEB-INF/views/index/index.jsp" />
+	</definition>
+	<!-- tiles 제외 끝 -->
+
+	<definition name="Template"
+		template="/WEB-INF/template/default/template.jsp">
+		<put-attribute name="header" value="" />
+		<put-attribute name="menu"
+			value="/WEB-INF/template/default/menu.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/template/default/footer.jsp" />
+	</definition>
+	<!-- #해당 결과로 /WEB-INF/tiles/.....jsp 화면이 반환되며, 해당 화면에는 body가 존재 -->
+
+	<!-- #body만 value로 갈아끼운다 -->
+	<definition name="*/*" extends="Template">
+		<put-attribute name="body"
+			value="/WEB-INF/views/{1}/{2}.jsp" />
+	</definition>
+
+</tiles-definitions>

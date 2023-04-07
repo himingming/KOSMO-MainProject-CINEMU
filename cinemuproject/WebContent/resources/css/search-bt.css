@@ -1,0 +1,146 @@
+/*Search-bt CSS */
+header h2 {
+	margin-bottom: 60px;
+	font-style: italic;
+	margin-top: 50px;
+	text-align: left;
+}
+
+header h5 {
+	line-height: 140%;
+	margin-top: 15px;
+	font-size: 17px;
+	font-weight: 400;
+	color: #858585;
+	float: left;
+}
+
+header h5 span {
+	color: #444;
+	font-style: italic;
+}
+
+#scheaderid {
+	margin: 0;
+}
+
+#searchPage section {
+	padding: 20px 0 0 0;
+	background: #fff;
+}
+
+#myTab {
+	overflow: hidden;
+	border-bottom: 1px solid #203751;;
+	background-color: #203751;
+}
+
+#myTab .nav-item {
+	float: left;
+	position: relative;
+	width: 324px;
+	height: 42px;
+	position: static;
+	background: none;
+	color: #444;
+	line-height: 42px;
+	font-size: 17px;
+}
+
+#myTab .nav-item.on {
+	background: #203751;
+}
+
+#myTab .nav-item button {
+	padding-top: 0px;
+	background: #203751;
+	border-color: #203751;
+	width: 310px;
+	border-color: #203751;
+}
+
+#myTab .nav-item button:hover {
+	border-color: #203751;
+}
+
+#myTab .nav-item a {
+	color: #cacaca;
+	font-family: 'Nanum Myeongjo', serif;
+}
+
+#searchPage .morebtn {
+	float: right;
+	height: 28px;
+	line-height: 26px;
+	font-size: 11px;
+	background-color: #fff;
+	color: #627581;
+	display: inline-block;
+	min-width: 60px;
+	padding: 0 18px;
+	border-width: 1px;
+	text-align: center;
+	letter-spacing: -1px;
+	vertical-align: top;
+	transition: all .2s ease-in-out;
+	text-decoration: none;
+	border-radius: 2px;
+}
+
+#myTabContent img {
+	width: 300px;
+	height: 400px;
+	margin-bottom: 20px;
+}
+
+#myTabContent div div ol li {
+	padding: 0;
+	margin: 30px 10px 100px 10px;
+	display: inline-grid;
+}
+
+#myTabContent div div ol {
+	text-align: center;
+	padding: 0;
+	margin-bottom: 150px;
+}
+
+#myTabContent div div ol li a {
+	color: #444;
+	text-decoration: none;
+}
+
+#myTabContent #qnatable {
+	margin-top: 150px;
+}
+
+#myTabContent .table {
+	margin-top: 10px;
+}
+
+#searchPage .tablesub {
+	font-size: 20px;
+	font-weight: bold;
+	color: #444;
+	float: left;
+	font-family: 'Nanum Myeongjo', serif;
+}
+
+#nonrev {
+	display: none;
+}
+
+#nonqna {
+	display: none;
+}
+
+#searchPage #moremovid .morebtn {
+	border: none;
+	text-align: center;
+	float: inherit;
+	font-size: 15px;
+}
+
+#searchPage tfoot td {
+	border: none;
+}

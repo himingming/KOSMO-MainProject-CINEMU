@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="movie.pak.dto.LoginDTO" alias="mvo" />
+		<typeAlias type="movie.pak.dto.QnABoardDTO" alias="qvo" />
+		<typeAlias type="movie.pak.dto.QnACommDTO" alias="qcvo" />
+		<typeAlias type="movie.pak.dto.PageSearchDTO" alias="pgSvo" />
+		<typeAlias type="movie.pak.dto.MyLoginLoggerDTO" alias="lvo" />
+		<typeAlias type="movie.pak.dto.SnackUpDTO" alias="snackvo" />
+		<typeAlias type="movie.pak.dto.SnackBuyDTO" alias="buyvo" />
+		<typeAlias type="movie.pak.dto.MovieUpDTO" alias="muvo" />
+		<typeAlias type="movie.pak.dto.MovieBuyDTO" alias="mbvo" />
+		<typeAlias type="movie.pak.dto.MovieCommDTO" alias="mcvo" />
+		<typeAlias type="movie.pak.dto.MovieLikeDTO" alias="mlvo" />
+		<typeAlias type="movie.pak.dto.SeatDTO" alias="svo" />
+		<typeAlias type="movie.pak.dto.TheaterDTO" alias="thvo" />
+		<typeAlias type="movie.pak.dto.BoxDTO" alias="boxvo" />
+		<typeAlias type="movie.pak.dto.ScreeningDTO" alias="timevo" />
+		<typeAlias type="movie.pak.dto.TotallikeDTO" alias="tgenrevo" />
+		<typeAlias type="movie.pak.dto.MyMovieDTO" alias="myvo" />
+	</typeAliases>
+	<!-- <environments default=""> <environment id=""> <transactionManager type="JDBC"/> 
+		<dataSource type="JNDI"> <property name="data_source" value="java:comp/env/jdbc/myora"/> 
+		</dataSource> </environment> </environments> <mappers> <mapper resource="mapper/loginMap.xml"/> 
+		<mapper resource="mapper/qaMap.xml"/> </mappers> -->
+</configuration>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="login">
+<!-- 수정완료 ljumin 을 lbirth로 바꿈 & mgrno 삭제함 -->
+	<!-- 
+	insert시 테이블 컬럼 순서와 일치하게 sql문을 작성해야 하며 모든 컬럼을 전부  insert해줘야 한다.
+	(primary key #{lno}는  시퀀스로 자동 생성 된다.)
+ 	-->	
+ 	
+	<insert id="add" parameterType="mvo">
+	<!-- INSERT INTO login VALUES(LOGIN_SEQ.nextval, '2','2','123456-2234567','010-1234-1234','1','여자','TEST2') -->
+		INSERT INTO login VALUES(LOGIN_SEQ.nextval,
+		#{lid},#{lpwd},#{lbirth},#{lphone},#{lgender},#{lname},#{laddr},#{lemail},#{limg},#{lmileage},#{lclass})
+	</insert>
+	
+	<!-- 
+	아이디 중복 확인 count where lid로 사용자가 입력한 lid와 데이터베이스에 저장되어 있는 
+	lid를 비교하여 일치하는 아이디 갯수를 확인한다 lid제약조건이 unique key로 중복이 불가능 하므로 
+	이미 있을 경우 1개, 없을 경우 0개의 숫자가 [int]로 변환된다.
+	그냥 참고하기 => jdbcType= 으로 해당 컬럼타입을 지정해주면 null이 들어가도 오류가 나지 않는다. 예시) lid=#{lid, jdbcType=VARCHAR}
+	-->
+	<select id="idChk" parameterType="String" resultType="int">
+	select count(*) from login where lid=#{lid, jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 로그인을 위한 맵 -->
+	<select id="login" parameterType="mvo" resultType="mvo">
+	   select lid, lname from login where lid=#{lid} and lpwd=#{lpwd}
+	</select>
+	
+	<select id="mypage" parameterType="String" resultType="mvo">
+	select * from login where lid=#{lid}
+	</select>
+	
+	<!-- find ID-->
+	<select id="findId" parameterType="mvo" resultType="String">
+	   select lid from login where lname=#{lname} and lbirth=#{lbirth} and lphone=#{lphone}
+	</select>
+	
+	<!-- find PW -->
+	<select id="findPwd" parameterType="mvo" resultType="mvo">
+	   select lid, lemail, lpwd from login where lid=#{lid} and lemail=#{lemail}
+	</select>
+	<!-- 비밀번호 재설정 -->
+	<update id="pwdup" parameterType="hashMap">
+	update login set lpwd=#{lpwd} where lid=#{lid}
+	</update>
+	
+	
+	<!-- 
+	어떤 컬럼을 수정할 것인지 결정. => 비밀번호(lpwd), 연락처(lphone), 조건(where)을 위한 아이디(lid)
+	jsp 수정폼에서 다수의 값을 받아와야 하므로 parameterType를 mvo로 설정, 반환값이 없기 때문에 resultType 없음
+	developer에서 코드를 작성해서 수정이 되는지 확인 후, 해당 코드를 참고하여 업데이트문 작성
+	update login set lname='movie', lpwd='1', lphone='123-4567', lgender='남자' where lid='movie'; 
+	-->
+	<update id="myup" parameterType="mvo">
+	update login set lpwd=#{lpwd}, lphone=#{lphone}, laddr=#{laddr}, lemail=#{lemail}, limg=#{limg} where lid=#{lid}
+	</update>
+	
+	<!--  login loginloger mapper  -->
+   <insert id="logger_in" parameterType="lvo">
+      insert into loginlog values(loginlog_seq.nextVal,#{idn},#{reip},
+      #{uagent},#{status},sysdate)
+   </insert>
+   
+  <delete id="delmem" parameterType="String">
+   delete from login where lid = #{lid}
+   </delete>
+   
+   	<!-- loggin info 리스트 -->
+	<select id="loginfo" parameterType="String" resultType="lvo">
+		select reip,to_char(sstime,'YYYY-MM-DD')sstime,count(*)cnt
+		from loginlog
+		where idn=#{idn}
+		GROUP by reip,to_char(sstime,'YYYY-MM-DD') order by 2 desc
+	</select>
+	
+	<select id="logdemo" parameterType="String" resultType="int">
+		select count(*)cnt
+		from loginlog
+		where idn=#{idn}
+	</select>
+	<!-- loggin info 리스트 끝 -->
+	
+   
+</mapper>

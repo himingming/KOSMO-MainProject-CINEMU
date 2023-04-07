@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="ticketMap">
+ 
+<!-- 결제 마일리지 사용 -->
+<select id="getMileage" resultType="int" parameterType="String">
+ select lmileage from login  where lid = #{lid}
+</select>
+
+<!-- 결제완료시 movieBuy insert문 -->
+<insert id="insertTicket" parameterType="mbvo">
+INSERT INTO moviebuy VALUES(moviebuy_SEQ.nextval,
+      #{lid},#{mbsaram},#{mbdate},#{mbpay},#{mno},TO_DATE(TO_CHAR(sysdate, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+      ,#{booking_no},#{theater_id},#{screening_id},#{seatno})
+</insert>
+
+<!-- 결제 마일리지 사용시 마일리지 차감 update -->
+<update id="MileageDed" parameterType="map">
+UPDATE login SET lmileage = lmileage - #{subtractAmount,jdbcType=INTEGER} WHERE lid = #{lid,jdbcType=VARCHAR}
+</update>
+  </mapper>

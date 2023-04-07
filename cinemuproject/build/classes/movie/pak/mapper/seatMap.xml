@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="seat">
+
+<!-- 좌석 상영관과 상영시간에 따라서 만들기 -->
+<select id="getSeatClick" resultType="svo" parameterType="map">
+SELECT * FROM seat WHERE theater_id = #{theater_id} AND SCREENING_ID = #{screening_id}
+  </select>
+  
+<update id="updateBooked" parameterType="java.util.List">
+    UPDATE seat
+    SET booked = 1
+    WHERE booked = 0 and seatno IN
+    <foreach collection="list" item="seatno" open="(" separator="," close=")">
+      #{seatno}
+    </foreach>
+    and theater_id= #{theater_id} and screening_id = #{screening_id}  
+</update>
+
+  </mapper>

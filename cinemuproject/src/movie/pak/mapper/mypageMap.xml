@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypagep">
+	<!-- 수정 mstarttime 삭제함 무준아 알겠니??? -->
+
+	<select id="moviep" parameterType="map" resultType="myvo">
+		SELECT rnum,
+		mimg, mname, mbdate, buy_time, seatno, theater_name,
+		theater_no,
+		start_time, end_time
+		FROM (
+		SELECT rownum rnum,
+		mu.mimg, mu.mname,
+		SUBSTR(mb.mbdate, 1, 10) mbdate, SUBSTR(mb.buy_time, 1, 8) buy_time,
+		mb.seatno,
+		th.theater_name, th.theater_no, sc.start_time, sc.end_time
+		FROM movieup mu
+		JOIN moviebuy mb ON mu.mno = mb.mno
+		JOIN theater th ON
+		mb.theater_id = th.theater_id
+		JOIN screening sc ON mb.screening_id =
+		sc.screening_id
+		WHERE mb.lid = #{lid}
+		)
+		WHERE rnum BETWEEN #{begin} and
+		#{end}
+	</select>
+
+
+
+	<select id="movieCnt" parameterType="String" resultType="int">
+		SELECT
+		count(mname) FROM movieup
+		mu, moviebuy mb, theater th, screening sc
+		where mu.mno = mb.mno
+		and
+		mb.theater_id = th.theater_id
+		and
+		mb.screening_id = sc.screening_id
+		and
+		mb.lid =#{lid}
+	</select>
+
+	<!-- 스낵 쿼리 시작 -->
+	<select id="snackp" parameterType="map" resultType="snackvo">
+		SELECT
+		rnum,
+		popimg, popname, snackdetail, snacksaram, poppay
+		FROM (
+		select rownum
+		rnum, sk.popimg, sk.popname,
+		sk.snackdetail,b.poppay,b.snacksaram
+		from
+		snack sk, snackbuy b where
+		sk.popname = b.popname and b.lid=#{lid}
+		)
+		WHERE rnum BETWEEN #{begin} and #{end} order by rnum
+	</select>
+
+	<!-- 스낵 구매 총 수 -->
+	<select id="snackCnt" parameterType="String" resultType="int">
+		select
+		count(sk.popname) FROM snack sk, snackbuy b where
+		sk.popname =
+		b.popname and b.lid=#{lid}
+	</select>
+	<!-- 감상평 기록 쿼리 시작 -->
+	<select id="mymvcomm" parameterType="map" resultType="mcvo">
+		SELECT
+		rnum, mimg, mname, mgood, comm, commdate
+		FROM (
+		SELECT mu.mimg,
+		mu.mname, mc.mgood, mc.comm, mc.commdate, rownum as rnum
+		FROM movieup
+		mu, moviecomm mc
+		WHERE mu.mno = mc.mno and mc.lid = #{lid} order by
+		commdate desc
+		)
+		WHERE rnum BETWEEN #{begin} and #{end} order by rnum
+	</select>
+
+	<select id="mvcommCnt" parameterType="String" resultType="int">
+		select
+		count(mc.comm) FROM movieup mu, moviecomm mc
+		WHERE mu.mno = mc.mno and
+		mc.lid = #{lid}
+	</select>
+
+	<!-- Q&A 쿼리 시작 -->
+	<select id="qnap" parameterType="map" resultType="qvo">
+		select rnum,
+		subject,content,mdate from( select rownum rnum,
+		qd.subject, qd.content,
+		qd.mdate from qaboard qd, login lg
+		where
+		qd.writer = lg.lid and
+		writer=#{lid} order by mdate desc)
+		where rnum between #{begin} and
+		#{end} order by rnum
+	</select>
+
+	<select id="qnapCnt" parameterType="String" resultType="int">
+		select
+		count(qd.subject) from qaboard qd, login lg
+		where
+		qd.writer = lg.lid and
+		writer=#{writer}
+	</select>
+
+
+
+	<!-- Q&A 쿼리 끝 -->
+
+	<select id="mvlikep" parameterType="map" resultType="muvo">
+		select rnum,
+		mimg,mname,mtype from(select rownum rnum,mu.mimg,mu.mname,mu.mtype
+		from movieup mu, movielike ml
+		where ml.lid=#{lid} and mu.mno=ml.mno)
+		where rnum between #{begin} and
+		#{end} order by rnum
+	</select>
+
+	<select id="mvlikeCnt" parameterType="String" resultType="int">
+		select
+		count(mno) from movielike
+		where lid=#{lid}
+	</select>
+
+	<!-- 총 영화 구매 금액 -->
+
+	<select id="mbpay" resultType="int" parameterType="String">
+		SELECT nvl(sum(mbpay),0) AS total_mbpay
+		FROM moviebuy
+		WHERE lid = #{lid}
+	</select>
+
+	<!-- 총 스낵 구매 금액 -->
+	<select id="poppay" resultType="int" parameterType="String">
+		SELECT nvl(SUM(poppay),0) AS total_poppay
+		FROM snackbuy
+		WHERE lid = #{lid}
+	</select>
+
+	<!-- 좋아요 선택한 장르 -->
+	<select id="liketype" resultType="String" parameterType="String">
+		SELECT
+		mu.mtype
+		FROM movielike ml
+		JOIN movieup mu ON ml.mno = mu.mno
+		WHERE
+		ml.lid = #{lid}
+	</select>
+	<!-- 좋아요 선택한 장르의 영화들 -->
+	<select id="mtname" resultType="String" parameterType="String">
+		SELECT
+		mu.mname
+		FROM movielike ml
+		JOIN movieup mu ON ml.mno = mu.mno
+		WHERE
+		ml.lid = #{lid} and mu.mtype like '%' || #{genrelist} || '%'
+	</select>
+
+	<!-- 회원 전체 좋아요 선택한 장르 차트 -->
+	<select id="totalliketype" resultType="tgenrevo">
+		SELECT mtype, count FROM (
+		SELECT mtype, count(*) AS count
+		FROM (
+   <![CDATA[ SELECT REGEXP_SUBSTR(a.mtype, '[^/]+', 1, b.lv) AS mtype
+       FROM (
+         SELECT mu.mtype
+         FROM movielike ml
+         JOIN movieup mu ON ml.mno = mu.mno
+       ) a,
+        (SELECT ROWNUM AS lv FROM dual CONNECT BY LEVEL <= (SELECT MAX(REGEXP_COUNT(mtype, '/'))+1 FROM movieup)) b
+       WHERE REGEXP_SUBSTR(a.mtype, '[^/]+', 1, b.lv) IS NOT NULL
+        )   
+        GROUP BY mtype
+        ORDER BY count DESC
+      )
+      WHERE ROWNUM <= 5]]>
+
+	</select>
+
+	<!-- 회원 전체 좋아요 선택한 장르의 영화들 -->
+	<select id="tomtname" resultType="String" parameterType="String">
+		SELECT mu.mname
+		FROM movielike ml
+		JOIN movieup mu ON ml.mno = mu.mno
+		WHERE mu.mtype like '%' || #{togenrelist} || '%'
+	</select>
+
+</mapper>

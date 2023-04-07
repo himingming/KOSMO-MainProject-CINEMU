@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chart">
+<!-- 수정 없음 -->
+   <select id="gendonut" parameterType="int" resultType="mvo">
+      select
+      lgender, count(lgender)cnt
+      from login l, moviebuy m
+      where l.lid = m.lid
+      and mno=#{mno}
+      group by lgender
+   </select>
+
+   <select id="mtitle" parameterType="int" resultType="String">
+      select mname
+      from movieup where mno=#{mno}
+   </select>
+   
+      <select id="ageBarlist" parameterType="int" resultType="map">
+      select ages, cnt from
+      (SELECT
+      sum(decode(age2,'10s',1,0))a10,
+      sum(decode(age2,'20s',1,0))a20,
+      sum(decode(age2,'30s',1,0))a30,
+      sum(decode(age2,'40s',1,0))a40,
+      sum(decode(age2,'50s',1,0))a50,
+      sum(decode(age2,'60s',1,0))a60
+      FROM (SELECT
+      <![CDATA[
+      CASE WHEN age < 20 THEN '10s'
+      WHEN age >= 20 AND age < 30 THEN '20s'
+      WHEN age >= 30 AND age < 40 THEN '30s'
+      WHEN age >= 40 AND age < 50 THEN '40s'
+      WHEN age >= 50 AND age < 60 THEN '50s'
+      WHEN age >= 60 THEN '60s']]>
+      END age2
+      FROM (
+      SELECT trunc(months_between(sysdate,lbirth)/ 12) age
+      from login l, movieup m, moviebuy b
+      where b.lid = l.lid(+) and m.mno=b.mno and b.mno = #{mno})))
+      UNPIVOT(
+      cnt for ages in (a10 as'10대이상',a20 as'20대',a30 as'30대',a40 as'40대',a50
+      as'50대',a60 as'60대이상'))
+   </select>
+
+ 
+</mapper>

@@ -1,0 +1,278 @@
+/*QnA List, Form, Detail,pageModule*/
+
+/*List*/
+#content .table {
+	border: 1px solid #EDECEB;
+	padding: 49px;
+	background: white;
+	border-left: none;
+	border-right: none;
+}
+
+#content .table thead tr th {
+	padding: 13px 0;
+	border-top: 1px solid #EAEAE8;
+	border-bottom: 1px solid #EAEAE8;
+	color: #393939;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+#content .table tbody tr td {
+	padding: 12px;
+	border-top: 1px solid #EAEAE8;
+	font-size: 15px;
+	color: #848484;
+}
+
+#content .table tbody tr td a {
+	color: #848484;
+	text-decoration: none;
+}
+
+#content .table tfoot .col-auto {
+	display: inline-flex;
+	height: 40px;
+}
+
+#content .table tfoot .col-auto #searchValue {
+	width: 300px;
+	height: 30px;
+	border: 0 none;
+	font-size: 15px;
+	text-align: left;
+	padding-left: 0;
+}
+
+#content .table tfoot tr .button-l {
+	border-color: #627581;
+	color: #fff;
+	border: none;
+	width: 120px;
+	height: 40px;
+	border-radius: 2px;
+	background-color: #627581;
+}
+
+#content .table tfoot tr .button-l:hover {
+	border: 1px solid #627581;
+	background: none;
+	color: #627581;
+}
+
+#content .table tfoot tr .button-l a {
+	min-width: 100px;
+	margin: 0 0 0 5px;
+	padding: 10px 5px 10px 5px;
+	background: #FFF;
+	border: 1px solid #d5d3d3;
+	font-weight: 400;
+	color: #424242;
+	font-size: 15px;
+}
+
+#content .table tfoot .d-flex {
+	margin-left: 34%;
+	height: 48px;
+}
+
+#content .table tfoot .d-flex #searchType {
+	display: inline-block;
+	margin-right: 10px;
+	padding-bottom: 5px;
+	padding-top: 0;
+	font-size: 16px;
+	border: none;
+	text-align: center;
+	height: 40px;
+}
+
+}
+#content .table tfoot .d-flex #searchType select {
+	height: 30px;
+	padding: 5px;
+	font-size: 15px;
+	border: 0 none;
+}
+
+.d-flex .input {
+	display: inline-block;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #dadada;
+}
+
+.d-flex .input input {
+	width: 300px;
+	height: 30px;
+	border: 0 none;
+	font-size: 15px;
+	text-align: left;
+}
+
+/*pageModule*/
+#page {
+	margin-bottom: 60px;
+}
+
+#page .pagination {
+	padding-top: 20px;
+	text-align: center;
+	vertical-align: top;
+}
+
+#page .pagination a {
+	border: none;
+	color: #627581;
+	background-color: #fff;
+}
+
+#page .pagination #page-link {
+	background-color: #627581;
+	color: #fff;
+}
+
+/*Form*/
+.qnaform .qnaform-box {
+	border: 1px solid #EDECEB;
+	padding: 80px 80px 0 80px;
+	background: white;
+	margin: 100px auto;
+	width: 85%;
+	text-align: justify;
+}
+
+.qnaform .qnaform-box .row {
+	padding: 0 49px 49px;
+	background: white;
+}
+
+.qnaform .qnaform-box #writerbox, .qnaform .qnaform-box #subjectbox {
+	width: 100px;
+	padding-top: 9px;
+}
+
+.qnaform .qnaform #sub1 {
+	border: 1px solid #EDECEB;
+	padding: 0 49px 49px;
+	background: white;
+}
+
+.qnaform .qnaform-box label {
+	width: 170px;
+	color: #34455a;
+	font-size: 18px;
+	font-weight: bolder;
+}
+
+.qnaform .qnaform-box .col-sm-10 {
+	font-weight: bolder;
+	padding-bottom: 9px;
+	font-size: 17px;
+	width: 850px;
+}
+
+.qnaform .qnaform-box .col-sm-10 #subject {
+	line-height: 28px;
+	padding: 0 5px;
+	border: 1px solid #E2E2E2;
+	font-size: 13px;
+	color: #8C8C8C;
+	height: 45px;
+	width: 460px;
+	margin: 2px 0;
+}
+
+.qnaform .qnaform-box .col-sm-10 textarea {
+	resize: none;
+	line-height: 28px;
+	padding: 0 20px;
+	border: 1px solid #E2E2E2;
+	font-size: 15px;
+	color: #8C8C8C;
+	height: 400px;
+	width: 850px;
+	margin: 2px 0;
+}
+
+.qnaform .qnaform-box #wbtn {
+	border-color: #627581;
+	color: #fff;
+	border: none;
+	width: 120px;
+	height: 40px;
+	border-radius: 2px;
+	background-color: #627581;
+}
+
+.qnaform .qnaform-box #listBtn {
+	border: 1px solid #627581;
+	color: #627581;
+	width: 120px;
+	height: 40px;
+	border-radius: 2px;
+	background-color: #fff;
+}
+
+.qnaform .qnaform-box #submitid {
+	text-align: right;
+	margin-left: 20px;
+}
+
+/*qnadetail*/
+.qnadetail-box {
+	border: 1px solid #EDECEB;
+	padding: 49px;
+	background: white;
+	margin-bottom: 20px;
+}
+
+.qnadetail-box .content {
+	border-top: 1px solid #E2E2E2;
+	height: 300px;
+}
+
+.qnadetail-box .content label {
+	height: 300px;
+	width: 100%;
+	padding: 20px;
+}
+
+.qnadetail-box .subject .qnadetail-box-info {
+	display: initial;
+	margin-left: 560px;
+}
+
+.qnadetail .button-l {
+	border: 1px solid #627581;
+	color: #fff;
+	width: 120px;
+	height: 35px;
+	border-radius: 2px;
+	background-color: #627581;
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+.qnadetail .update-btn {
+	text-decoration: none;
+}
+
+.qnadetail textarea {
+	resize: none;
+}
+
+.qnadetail .detail-comm{
+	width: 100%;
+}
+
+.qnadetail tbody td button,
+.qnadetail tbody td input{
+    border: 1px solid #627581;
+    color: #fff;
+    width: 60px;
+    height: 35px;
+    border-radius: 2px;
+    background-color: #627581;
+    font-size: 14px;
+    margin-top: 5px;
+}

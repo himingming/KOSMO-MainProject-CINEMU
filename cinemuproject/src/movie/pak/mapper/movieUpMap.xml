@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movieup">
+<!-- 수정 mendday 추가함& mgrno 삭제 -->
+
+	<insert id="add" parameterType="muvo">
+		insert INTO movieup
+		values(movieup_seq.nextVal,
+		#{mimg},#{mname},#{msaram},#{mtype},#{mtime},#{mage},#{mstartday},#{mdirec},
+		#{mstory},#{mactor},#{mendday},#{mmain})
+	</insert>
+	<!-- 영화 등록 리스트 페이징 -->
+	<select id="totalCount" resultType="int">
+		select count(*) from movieup
+	</select>
+
+	<select id="listpage" parameterType="map" resultType="muvo">
+		select *
+		from(
+		select rownum r_num, a.* from(
+		select * from movieup order by mno
+		asc
+		)a
+		)where r_num between 1 and 10
+	</select>
+
+	<select id="listmovie" resultType="muvo">
+		select
+		mno,mimg,mname,msaram,mtype,mtime,mage,mstartday,mdirec,mstory,mactor
+		from movieup order by 1 asc
+	</select>
+
+	<select id="detailmovie" parameterType="int" resultType="muvo">
+		select
+		mno,mimg,mname,msaram,mtype,mtime,mage,mstartday,mdirec,mstory,mactor,mmain
+		from movieup where mno=#{mno}
+	</select>
+
+	<update id="updatemovie" parameterType="muvo">
+		update movieup set
+		mimg=#{mimg},mname=#{mname},msaram=#{msaram},mtype=#{mtype},mtime=#{mtime},mage=#{mage},
+		mstartday=#{mstartday},mdirec=#{mdirec},mstory=#{mstory},mactor=#{mactor}
+		where mno=#{mno}
+	</update>
+
+	<delete id="deletemovie" parameterType="int">
+		delete from movieup where
+		mno=#{mno}
+	</delete>
+
+
+	<!-- 영화별 후기 및 평점 등록 -->
+
+	<select id="listmoviecomm" resultType="mcvo" parameterType="int">
+		select commno,mno,lid,mgood,comm,commdate from moviecomm where
+		mno=#{mno} order by 1 desc
+	</select>
+
+	<insert id="addmoviecomm" parameterType="mcvo">
+		insert INTO moviecomm
+		values(moviecomm_seq.nextVal,#{mno},#{lid},#{mgood},#{comm},sysdate)
+	</insert>
+
+	<!-- 후기 수정 및 삭제 -->
+	<update id="upmoviecomm" parameterType="mcvo">
+		update moviecomm set
+		mgood=#{mgood}, comm=#{comm} where commno=#{commno}
+	</update>
+
+	<select id="delmovie" parameterType="int" resultType="int">
+		select mno
+		from moviecomm where commno=#{commno}
+	</select>
+
+	<delete id="delcommno" parameterType="int">
+		delete from moviecomm where
+		commno=#{commno}
+	</delete>
+
+	<select id="mgoodAvg" parameterType="int" resultType="float">
+		select
+		round(AVG(NVL(mgood,0)),1) as mgoodAvg from moviecomm where
+		mno=#{mno}
+	</select>
+
+	<!-- 영화, 배우, 감독 전체 검색 -->
+	<select id="searchMv" parameterType="String" resultType="muvo">
+		SELECT mno, mimg, mname, msaram,mtype,mtime,mage,mstartday,mdirec,
+		mstory,mactor FROM MOVIEUP
+		<if test="searchValue != null">
+			<where>
+				MNAME LIKE '%' || #{searchValue} || '%'
+				OR MACTOR LIKE
+				'%'||#{searchValue} || '%'
+				OR MDIREC LIKE '%' || #{searchValue} ||
+				'%'
+			</where>
+		</if>
+		order by 1 desc
+	</select>
+	<!-- 서브쿼리를 사용하여 전체 예매수의 합을 구하고, 각 영화의 예매수를 전체 예매액의 합으로 나눈 다음 전체 구매를 1% 기준으로 
+		반올림하여 2번째 자리까지 표시 비율을 구하는 것 -->
+	<!-- JOIN 대신 LEFT JOIN을 사용하여, movieup 테이블의 mno와 ratio 모든 레코드 출력!! 그냥 join 
+		이용하면 값이 null이 아닌 아예없음이 됨!! 그래서 0인 영화들 출력 불가 -->
+	<!-- NVL(ratio, 0) AS ratio => null값일때 0으로 변경 -->
+	<!-- (SUM(MB.mbsaram) => 각 영화의 구매 인원 수, SUM(SUM(MB.mbsaram)) OVER() => 모든 
+		영화의 구매 인원 수 -->
+	<!-- BETWEEN TRUNC(SYSDATE) - 6 AND TRUNC(SYSDATE) + 1 => TRUNC(SYSDATE)는 
+		현재 날짜의 0시 0분 0초를 의미 시작 날짜는 6일 전, 끝나는 날짜는 내일(00시00분까지) -> 총 7일 -->
+	<!-- 영화 예매율 -->
+	<select id="ratio" resultType="float">
+		SELECT
+		NVL(ratio, 0) AS ratio
+		FROM movieup mu
+		LEFT JOIN (
+		SELECT
+		MU.mno,
+		ROUND(SUM(MB.mbsaram) / (SUM(SUM(MB.mbsaram)) OVER() * 0.01), 2) AS ratio
+		FROM movieup MU
+		JOIN moviebuy MB ON MU.mno = MB.mno
+		WHERE MB.buy_time BETWEEN TRUNC(SYSDATE) - 6 AND TRUNC(SYSDATE) + 1
+		GROUP BY MU.mno, MU.mname
+		) mr ON mu.mno = mr.mno
+		ORDER BY mu.mno 
+	</select>
+
+
+	<!--박스오피스를 위한 매퍼 -->
+	<select id="box" resultType="boxvo">
+SELECT *
+FROM (
+  SELECT 
+  mu.mno,
+    mu.mname,
+    NVL(ratio, 0) AS ratio,
+    mu.mimg
+  FROM movieup mu
+  LEFT JOIN (
+    SELECT
+      MB.mno,
+      ROUND(SUM(MB.mbsaram) / (SUM(SUM(MB.mbsaram)) OVER() * 0.01), 2) AS ratio
+    FROM moviebuy MB
+    WHERE MB.buy_time BETWEEN TRUNC(SYSDATE) - 6 AND TRUNC(SYSDATE) + 1
+    GROUP BY MB.mno
+  ) mr ON mu.mno = mr.mno
+  LEFT JOIN (
+    SELECT 
+      mno, 
+      COUNT(mno) AS like_count 
+    FROM movielike 
+    GROUP BY mno
+  ) ml ON mu.mno = ml.mno
+  ORDER BY NVL(ratio, 0) desc, NVL(ml.like_count, 0) desc
+) 
+<![CDATA[WHERE ROWNUM <= 8]]>
+	</select>
+
+</mapper>

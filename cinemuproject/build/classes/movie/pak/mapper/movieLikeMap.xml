@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movielike">
+<!--  수정 없음!!!!!!!!!!!!!!!! -->
+	<!-- lid와 mno를 받은 이유 어떤 사용자가 어떤 영화에 좋아요를 눌렀는지 확인하기 위해서 -->
+
+	<!-- 좋아요 눌렀을 때 데이터에 들어가는 insert sql문 mno=영화 번호 -->
+	<insert id="addLike" parameterType="mlvo">
+	insert into movieLike VALUES (movieLike_seq.nextVal,#{lid},#{mno})
+	</insert>
+	
+	<!-- lid와 mno를 받아서 좋아요 기록을 삭제한다. -->
+	<delete id="delLike" parameterType="mlvo">
+	delete from movieLike where lid=#{lid} and mno=#{mno}
+	</delete>
+	
+	<!-- 좋아요 수 반환 좋아요 기록이 있으면 1 없으면 0을 반환한다. -->
+	<select id="mylikeCnt" parameterType="mlvo" resultType="int"> <!-- 좋아요가 있는 지 없는 지 확인 -->
+	select count(mlno) from movielike where mno=#{mno} and lid=#{lid}
+	</select>
+	
+	<!-- 총 좋아요 수 반환 -->
+   <select id="likeCnt" parameterType="mlvo" resultType="int">
+   select count(mlno) as likecnt from movielike where mno=#{mno}
+   </select>
+
+</mapper>

@@ -1,0 +1,480 @@
+/* 예매, 전체영화, 상영시간표 CSS */
+
+/* resvSelectForm */
+* {
+	box-sizing: border-box;
+}
+
+div {
+	display: block;
+}
+#tableSeat {
+   width: 50%;
+   border-collapse: collapse;
+   border-spacing: 0;
+   table-layout: fixed;
+   word-wrap: break-word;
+   word-break: keep-all;
+}
+#tableSeat button{
+    margin-bottom: 20%;
+}
+.inner-wrap {
+	width: 1250px;
+	margin: auto;
+	margin-top: 20px;
+	height: 600px;
+}
+
+.quick-reserve {
+	height: 600px;
+	/* border: 1px solid;
+  background-color: pink;*/
+}
+
+.quick-reserve h2 {
+	width: 100%;
+	border-bottom: 1px solid black; /* 없애면 안됨!*/
+	padding-bottom: 10px;
+	/* background-color: yellow;*/
+}
+/* 전체 틀*/
+
+/* 달력, 리스트 전체 틀 */
+.quick-reserve-biginner {
+	/*  background-color: green; */
+	width: 100%;
+	height: 50px;
+}
+
+.mege-quick-reserve-inculde {
+	width: 1100px;
+	margin: 0 auto;
+	padding: 0;
+	background-color: #fff;
+}
+/* 달력, 리스트 전체 틀 */
+/* 주간 날짜 시작*/
+.time-schedule {
+	width: 1250px;
+	/* height: 50px; 
+  background-color: purple;  */
+}
+
+/* 주간 날짜 css 언제나 삭제가능*/
+.time-schedule:after, .time-schedule:before {
+	content: '';
+	display: table
+}
+
+.time-schedule:after {
+	clear: both
+}
+
+.dayclick-btn {
+	width: 60px;
+	border: none;
+	background-color: white;
+}
+
+.time-schedule .wrap {
+	border: 1px solid #d8d9db;
+	border-right: 0;
+	border-left: 0;
+	width: 1250px;
+}
+
+p #datevalue { /* 작은 달력 */
+	float: right;
+}
+
+.quick-reserve-area {
+	width: 1250px;
+	background-color: white;
+	height: 480px;
+	border: 1px solid #d8d9db;
+}
+/* 영화 리스트 시작  */
+.quick-reserve-area .movie-choice {
+	position: relative;
+	float: left;
+	width: 350px;
+	height: 463px;
+	padding: 0 20px 17px 20px;
+	border-right: 1px solid #d8d9db;
+}
+
+.movie-btn {
+	border: none;
+	background-color: white;
+}
+
+.movie-btn:hover {
+	background-color: #263343;
+	color: #cacaca;
+}
+
+ul {
+	list-style: none;
+}
+/* 영화 리스트 끝  */
+/* 상영관 리스트 시작  */
+.quick-reserve-area .theater-choice {
+	float: left;
+	width: 310px;
+	height: 460px;
+	padding: 0 20px 20px 20px;
+	border-right: 1px solid #d8d9db;
+	/* background-color: gray; */
+}
+
+.button-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	float: left;
+	gap: 10px;
+	border-right: 1px solid #ccc; /* 선 추가 */
+	padding-right: 20px;
+	height: 300px;
+}
+
+.place-btn {
+	background-color: #fff;
+	color: #333;
+	font-size: 16px;
+	padding: 10px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	border: none;
+}
+
+.button-region {
+	flex-wrap: wrap;
+	gap: 10px;
+	height: 200px;
+	flex-direction: row; /*수평 정렬*/
+	padding-left: 120px;
+}
+
+.theaterNoBtn {
+	background-color: #fff;
+	color: #333;
+	font-size: 16px;
+	padding: 10px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	border: none;
+	display: flex;
+	align-items: center;
+}
+
+.theaterNoBtn:hover {
+	background-color: #263343;
+	color: #cacaca;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	/* hover 상태에서 배경색과 글자색 변화를 0.3초 동안 자연스럽게 일어나도록 함 */
+}
+
+.place-btn:hover {
+	background-color: #263343;
+	color: #cacaca;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	/* hover 상태에서 배경색과 글자색 변화를 0.3초 동안 자연스럽게 일어나도록 함 */
+}
+
+/* 상영관 리스트 끝 */
+
+/* 시간 리스트 시작  */
+.quick-reserve-area .time-choice {
+	float: right;
+	width: 548px;
+	height: 480px;
+	padding: 0;
+	display: inline-block;
+}
+
+.time-choice .time-btn {
+	align-items: center;
+	width: 100%;
+	height: 80px;
+	font-size: 24px;
+	text-align: left;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	border: none;
+	background-color: white;
+	overflow: hidden;
+}
+
+.time-choice .time-btn:hover {
+	background-color: #263343;
+	color: #cacaca;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.time-choice .time-btn .start-time {
+	font-size: 25px;
+	font-weight: bold;
+	margin-right: 10px;
+	padding-bottom: 5px;
+}
+
+.time-choice .time-btn .end-time {
+	font-size: 20px;
+	font-weight: normal;
+	margin-right: 5px;
+	margin-left: 5px;
+	padding-bottom: 5px;
+}
+
+.time-choice .time-btn .divider {
+	font-size: 20px;
+	font-weight: bold;
+	margin-right: 10px;
+	margin-left: 5px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.time-choice .time-btn .movie-name {
+	font-size: 20px;
+	font-weight: bold;
+	align-self: center;
+}
+
+.time-choice .time-btn span {
+	display: inline-block;
+}
+/* 시간 리스트 끝  */
+
+/* 팝업창 시작*/
+#document-modal {
+	background-color: rgba(0, 0, 0, 0.8);
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: -100px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: none;
+}
+
+.document-modal {
+	width: 400px;
+	border-radius: 5px;
+	overflow: hidden;
+	height: 430px;
+	position: absolute;
+	top: calc(50vh - 210px);
+	left: calc(50vw - 200px);
+}
+
+.document-modal-header {
+	width: 100%;
+	height: 40px;
+	display: flex;
+	align-items: left;
+	justify-content: left;
+	color: white;
+	font-size: 10px;
+	padding-left: 10px;
+	background-color: #263343;
+}
+
+.document-modal-body {
+	width: 400px;
+	height: 200px;
+	padding: 1px;
+	background-color: white;
+	word-break: break-word;
+	overflow-y: auto;
+	color: black;
+}
+
+.dot-list {
+	color: black;
+	font-size: 15px
+}
+
+.btn-document-modal {
+	background-color: #263343;
+	/* align-items:left;
+    justify-content:left; */
+	color: white;
+	border: 1px solid #263343;
+}
+/* 팝업창 끝*/
+#mimngres {
+	display: flex;
+	padding-top: 10px;
+}
+
+/*모든영화 전체극장 칸 css*/
+.quick-reserve-area .view-area {
+	width: 100%;
+	padding: 0;
+}
+
+.quick-reserve-area .view-area .choice-all {
+	overflow: hidden;
+	width: 100%;
+	height: 90px;
+	margin-top: -10px;
+	padding: 25px 0 0 0;
+	font-size: .9333em;
+	line-height: 1.3;
+	text-align: center;
+	border: 1px solid #ebebeb;
+	background-color: #fff;
+}
+
+.quick-reserve-area .view-area .choice-all strong {
+	display: block;
+	padding: 0;
+	font-weight: 400;
+}
+
+.quick-reserve-area .list-area {
+	position: relative;
+	width: 100%;
+	margin: 0;
+	padding: 20px 0 0 0;
+}
+
+.quick-reserve-area .list-area .list {
+	display: block;
+	width: 100%;
+	height: 320px;
+	margin-top: 10px;
+}
+
+.quick-reserve-area .list-area .list .scroll {
+	overflow: hidden;
+	display: block;
+	width: 100%;
+	height: 280px;
+}
+
+.quick-reserve-area .theater-choice .list .scroll .brchList-ul {
+	position: relative;
+	height: 100%;
+}
+
+/*상영시간표*/
+input[type="date"] {
+	width: 21px;
+	zoom: 185%;
+	position: absolute;
+}
+
+.timetable-wrap .mplist {
+	margin-left: 55px;
+	margin-bottom: 50px;
+}
+
+.timetable-wrap .mplist .theater-ul {
+	font-size: 25px;
+	font-weight: 500;
+	margin-bottom: 0;
+}
+
+.timetable-wrap .mplist .theater-li {
+	margin: 10px;
+	font-size: 19px;
+}
+
+.timetable-wrap .mplist .tplace-btn {
+	border: none;
+	background-color: #fff;
+}
+
+.timetable-wrap .mplist .tplace-btn .theater-li:hover {
+	border-bottom: 2px solid #263343;
+}
+.theater-li-on{
+	border-bottom: 2px solid #263343;
+}
+
+.timetable-wrap .date-area {
+	text-align: center;
+}
+
+.timetable-wrap .dayclick-btn {
+	margin: 0 6px;
+}
+
+.timetable-wrap .dayclick-btn:hover {
+	border-bottom: 2px solid #263343;
+}
+
+.dayclick-btn-on {
+	border-bottom: 2px solid #263343;
+}
+
+
+.timetable-wrap .dayclick-btn.on {
+	border-bottom: 2px solid #263343;
+}
+
+.timetable-wrap .timetable-schedule {
+	margin-left: 50px;
+}
+
+.timetable-wrap #datevalue {
+	
+}
+
+.timetable-wrap .time-wrap {
+	margin-right: 50px;
+}
+
+.timetable-wrap .mplist .tplace-btn div {
+	margin-left: 50px;
+}
+
+.timetable-wrap .timetable-schedule .date-list .year-area {
+	margin-left: 20px;
+	display: inline-flex;
+}
+
+.timetable-wrap .timetable-schedule .date-list .year-area p {
+	margin-right: 10px;
+	font-size: 25px;
+	margin-bottom: 0;
+}
+#mCSB_1_container{
+	    padding-left: 20px;
+	
+}
+#mCSB_container {
+	position: relative;
+	top: 0;
+	left: 0;
+	margin-left: 20px;
+}
+
+.mCSB_container > span {
+    margin-left: 40px;
+    font-size: 23px;
+    font-weight: 700;
+    font-style: italic;
+}
+
+#listline{
+margin-left: 20px;
+}
+#imgsize{
+    margin-right: 30px;
+    width: 30px;
+}
+#mstarttime{
+    text-align: center;
+    width: 120px;
+    margin: 3px;
+    padding: 5px;
+    margin-left: 80px;
+    border: 1px solid #ebebeb;
+    border-radius: 3px;
+}

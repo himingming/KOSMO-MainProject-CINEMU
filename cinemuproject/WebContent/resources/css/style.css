@@ -1,0 +1,665 @@
+/*
+버튼색 : 		background: #263343;
+	color: #cacaca;
+헤더색: background-color: #263343;
+
+index, membership, 전체영화
+*/
+
+/*전체 적용*/
+a {
+	text-decoration: none;
+	text-align: center;
+	font-family: 'Nanum Gothic', sans-serif;
+	text-align: center;
+}
+
+body {
+	background-color: #fff;
+}
+
+section {
+	display: block;
+}
+
+html {
+	width: 100%;
+}
+
+#movie {
+	background-color: #fff;
+}
+
+.container {
+	position: relative;
+	padding: 0;
+	margin: 0;
+}
+
+.container h2 {
+	position: relative;
+	z-index: 1;
+	line-height: 110%;
+	font-size: 40px;
+	font-weight: 400;
+	color: #1F1F1F;
+	letter-spacing: -1px;
+	font-family: 'Nanum Myeongjo', serif;
+}
+
+.page-tit {
+	margin: 100px 0 65px 46px;
+	text-align: center;
+}
+
+.carousel-indicators, .movie {
+	position: relative;
+	width: 71%;
+	margin: 0; /* background:rgba(0,0,0,0.1); */
+}
+
+.infor_btn {
+	background: #263343;
+	color: #cacaca;
+	border-radius: 5px;
+}
+
+/* carousel 시작*/
+.carousel-item div p {
+	float: left;
+	font-style: italic;
+	font: bold;
+}
+
+.carousel-inner img {
+	height: 770px;
+}
+
+/* navbar 시작*/
+.index_navbar_logo a, .index_navbar_menu_right a {
+	font-family: 'Nanum Myeongjo', serif;
+	font-weight: bold;
+	color: gray;
+	text-decoration: none;
+	color: gray;
+}
+
+.index_navbar_menu_left a {
+	font-size: 17px;
+	font-weight: bolder;
+	color: gray;
+	text-decoration: none;
+	padding-bottom: 30px;
+	padding-left: 5px;
+	font-family: 'Nanum Gothic Coding', monospace;
+}
+
+.index_navbar {
+	width: 100%;
+	height: 85px;
+	position: relative;
+	display: flex;
+	align-items: center;
+	background-color: #263343;
+}
+
+.index_navbar a {
+	color: #c0c0c0;
+}
+
+.index_navbar:hover a {
+	color: #c0c0c0;
+}
+/* navbar logo 시작*/
+.index_navbar_logo a {
+	font-size: 53px;
+	position: absolute;
+	left: 46%;
+	margin: 0px;
+	top: -1px;
+	text-align: center;
+}
+
+/* navbar hover 띠 시작 */
+#index_item_bar {
+	width: 100%;
+	height: 140px;
+	background-color: #263343;
+	display: none;
+}
+
+/* navbar hover 띠 끝 */
+
+/* navbar left */
+.index_navbar_menu_left {
+	top: 20px;
+	position: relative;
+	display: flex;
+	list-style: none;
+	margin-top: 5px;
+	margin-right: -250px;
+}
+
+.index_navbar_menu_left li ul li {
+	list-style: none;
+	display: list-item;
+	width: 140px;
+	margin-left: 0;
+	margin-top: 20px;
+	padding-left: 0;
+}
+
+.index_navbar_menu_left li:hover>ul {
+	display: block;
+}
+
+.index_navbar_menu_left li {
+	padding: 8px 12px;
+	position: relative;
+	margin: 13px;
+	display: flex;
+}
+
+.index_navbar_menu_left li ul {
+	position: absolute;
+	padding: 0px;
+	display: none;
+	top: 35px;
+}
+
+/* navbar right */
+.index_navbar_menu_right {
+	left: 55%;
+	position: relative;
+	margin-top: 10px;
+	display: flex;
+}
+
+.index_navbar_menu_right>.nav-item {
+	margin-top: 20px;
+	margin-right: 70px;
+}
+
+.index_navbar_menu_right>li>form>i {
+	font-weight: 900;
+	color: #cacaca;
+}
+
+.index_navbar_menu_right li {
+	list-style: none;
+	float: right;
+	margin-left: auto;
+}
+
+.index_navbar_menu_right div {
+	position: relative;
+	width: 200px;
+	margin-left: 50px;
+	margin-top: 100px;
+}
+
+.index_navbar_menu_right input {
+	font-size: 15px;
+	color: #cacaca;
+	width: 200px;
+	border: none;
+	border-bottom: solid #aaaaaa 1px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	position: relative;
+	background: none;
+	z-index: 5;
+}
+
+.index_navbar_menu_right input::placeholder {
+	color: #aaaaaa;
+}
+
+.index_navbar_menu_right input:focus {
+	outline: none;
+}
+
+.index_navbar_menu_right a {
+	float: right;
+	text-decoration-line: none;
+	list-style: none;
+	padding: 10px;
+	font-size: 15px;
+	color: #c0c0c0;
+}
+/* navbar 끝 */
+
+/*aside*/
+#moviewheather {
+position: absolute;
+    height: 250px;
+    width: 145px;
+    background-color: #fff;
+    color: black;
+    border: 1px solid #e2e2e2;
+    text-align: center;
+    left: 100%;
+    display: sticky;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 30px;
+}
+/* 무비 */
+.movie {
+	padding: 8% 0;
+}
+
+.movie_title {
+	overflow: hidden;
+	margin-bottom: 60px;
+	text-align: center;
+	padding: 0 10%;
+}
+
+.movie_title ul {
+	overflow: hidden;
+	width: 900px;
+	padding: 0 10%;
+	margin-left: 28%;
+	text-align: center;
+	list-style: none;
+}
+
+.movie_title li {
+	float: left;
+	width: 270px;
+	margin-right: -1px;
+	text-align: center;
+}
+
+.movie_title li a {
+	display: block;
+	padding: 15px 0;
+	font-size: 30px;
+	color: #666;
+	font-weight: 700;
+	text-decoration: none;
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+	font-family: 'Nanum Myeongjo', serif;
+	font-weight: bold;
+}
+
+.movie_chart {
+	overflow: hidden;
+}
+
+.movie_chart>div>div>div {
+	display: inline-block;
+	height: 590px;
+}
+
+.movie_chart>div>div>div:last-child {
+	margin-right: 0;
+}
+
+.movie_chart>div>div>div .poster {
+	position: relative;
+}
+
+.movie_chart>div>div>div .poster img {
+	display: block;
+	width: 300px;
+	height: 400px;
+	margin: 0 13%;
+	border-radius: 5px;
+}
+
+.movie_chart>div>div>div .poster .mx {
+	position: absolute;
+	top: 17px;
+	right: 17px;
+}
+
+.movie_chart>div>div>div .poster .mx span {
+	width: 103px;
+	height: 25px;
+	display: block;
+}
+
+.movie_chart>div>div>div .poster .mx .m {
+	background-position: 0 -75px;
+}
+
+.movie_chart>div>div>div .poster .mx .b {
+	background-position: 0 -100px;
+}
+
+.movie_chart>div>div>div .infor {
+	background: #fff;
+	text-align: center;
+}
+
+.movie_chart>div>div>div .infor .score {
+	margin-bottom: 20px;
+}
+
+.movie_chart>div>div>div .infor .score .percent {
+	font-size: 16px;
+}
+
+.movie_chart>div>div>div .infor h3 {
+	color: #333;
+	font-size: 30px;
+	font-weight: 700;
+	text-align: center;
+}
+
+.movie_chart>div>div>div .infor h3 strong {
+	padding-left: 0px;
+	margin: 0 auto;
+}
+
+.movie_chart>div>div>div .infor .infor_btn a {
+	display: block;
+	float: left;
+	width: 35%;
+	margin-left: 33%;
+	text-align: center;
+	font-size: 18px;
+	padding: 10px 0;
+	border-radius: 5px;
+	background: #263343;
+	color: #cacaca;
+	text-decoration: none;
+}
+
+.movie_chart>div>div>div .infor .infor_btn {
+	overflow: hidden;
+	text-align: center;
+	width: 200px;
+	display: inline-block;
+}
+
+.movie_chart>div>div>div .infor .like-btn {
+	display: inline-table;
+	text-align: center;
+	background: #263343;
+	color: #cacaca;
+	font-size: 18px;
+	padding: 9px 0;
+	border-radius: 5px;
+	width: 22%;
+	position: relative;
+	bottom: 32px;
+}
+
+.movie_chart>div>div>div .infor .infor_btn a:last-child {
+	margin-right: 0;
+}
+
+/* 새로운 영화 */
+.new {
+	padding: 100px;
+	overflow: hidden;
+	position: relative;
+}
+
+.new h2 {
+	font-size: 30px;
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.new .new_left {
+	position: relative;
+	margin-right: 450px;
+	width: 850px;
+	height: 500px;
+	overflow: hidden;
+	background: #ccc url(../img/new01.jpg) center center;
+	background-size: cover;
+}
+
+.new .new_left .play {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 100%;
+	height: 100%;
+	transform: translate(-50%, -50%);
+	cursor: pointer;
+}
+
+.new .new_left .play .st0 {
+	fill: #fff;
+	opacity: 0.3;
+}
+
+.new .new_left .play .st1 {
+	fill: #fff;
+}
+
+.new .new_right {
+	position: absolute;
+	right: 0;
+	top: 156px;
+	width: 400px;
+	height: 500px;
+	background: #f0f0f0;
+	padding: 34px;
+	box-sizing: border-box;
+	border-radius: 3px;
+}
+
+.new .new_right .title {
+	font-size: 28px;
+	color: #000;
+}
+
+.new .new_right .release {
+	font-size: 15px;
+	color: #333;
+}
+
+.new .new_right .star {
+	padding: 13px 0;
+}
+
+.new .new_right .star strong {
+	font-size: 18px;
+	padding-left: 5px;
+}
+
+.new .new_right .star span {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	vertical-align: -3px;
+}
+
+.new .new_right .summary {
+	font-size: 14px;
+}
+
+.new .new_right .summary li {
+	list-style: none;
+}
+
+.new .new_right .summary .genre {
+	padding-bottom: 3px;
+}
+
+.new .new_right .summary .age {
+	padding-bottom: 10px;
+}
+
+.new .new_right .summary .desc {
+	margin-bottom: 20px;
+	height: 108px;
+	overflow-y: scroll;
+}
+
+.new .new_right .summary .desc::-webkit-scrollbar {
+	display: none; /* 크롬, 사파리, 오페라, 엣지 */
+}
+
+.new .new_right .btn {
+	overflow: hidden;
+	margin-top: 12%;
+	width: 650px;
+	text-align: center;
+}
+
+.new .new_right .summary {
+	padding: 0;
+}
+
+.new .new_right .btn a {
+	float: left;
+	width: 49%;
+	box-sizing: border-box;
+	padding: 10px 30px 12px 30px;
+	display: block;
+}
+
+.new .new_right .btn .white {
+	font-size: 14px;
+	margin-right: 2%;
+	background-color: #263343;
+	color: #cacaca;
+	text-decoration: none;
+	border-radius: 3px;
+}
+
+.new .new_right .btn .purple {
+	font-size: 14px;
+	background-color: #263343;
+	color: #cacaca;
+	text-decoration: none;
+	border-radius: 3px;
+}
+
+/* 상영관 소개 */
+.greeting {
+	overflow: hidden;
+	padding: 180px;
+	margin-bottom: 20px;
+}
+
+.greeting h2 {
+	font-size: 40px;
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.greeting h2 em {
+	font-family: 'Nanum Myeongjo', serif;
+}
+
+.greeting img {
+	display: block;
+	width: 600px;
+	height: 400px;
+	padding-bottom: 20px;
+	margin-top: 20px;
+	border-radius: 3px;
+}
+
+.greeting_left {
+	float: left;
+}
+
+.greeting_right {
+	float: right;
+}
+
+.greeting_left>p, .greeting_right>p {
+	font-size: 12px;
+	font-weight: bold;
+	margin: 0;
+}
+
+.greeting_left>p>a, .greeting_right>p>a {
+	font-size: 10px;
+	font-weight: lighter;
+}
+
+/*지도*/
+.map {
+	margin-bottom: 220px;
+}
+
+.map h2 {
+	margin-bottom: 40px;
+}
+
+.map h2 em {
+	font-family: 'Nanum Myeongjo', serif;
+}
+
+.map_left>article {
+	margin-top: 30px;
+}
+
+.map_left>article>h6 {
+	font-weight: 500;
+}
+
+.map_left {
+	float: left;
+	font-size: 13px;
+}
+
+.map_right {
+	float: right;
+	width: 650px;
+	height: 150px;
+}
+
+/*푸터 시작*/
+footer {
+	min-width: 100%;
+	padding: 0;
+	background-color: #f8f8f8;
+	display: block;
+	margin-top: 5%;
+}
+
+footer .policy_list {
+	display: flex;
+	justify-content: space-between;
+	max-width: 980px;
+	margin: 0 auto;
+	padding: 23px 0;
+	border-bottom: 1px solid #ebebeb;
+}
+
+footer .policy_list li {
+	font-weight: 500;
+	font-size: 13px;
+	color: #666;
+	line-height: 1.462em;
+	list-style: none;
+}
+
+.company_info {
+	font-size: 12px;
+	color: #666;
+	line-height: 1.667em;
+}
+
+footer .company_info_wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	max-width: 980px;
+	margin: 0 auto;
+	padding: 0 auto;
+}
+
+.company_info .company_info_list {
+	display: flex;
+	padding: 0;
+}
+
+.company_info .company_info_list li {
+	list-style: none;
+	margin-right: 10px;
+	text-decoration: none;
+}

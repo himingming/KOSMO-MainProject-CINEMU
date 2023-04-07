@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="snackbuy">
+<!-- 수정사항 없음 -->
+   <insert id="addbuy" parameterType="java.util.List">
+      <!-- for(String e : list) -->
+      <foreach collection="list" item="e" separator=" "
+         open="insert all" close="select * from dual">
+         into snackbuy
+         values(snackbuy_seq.nextVal,#{e.lid, jdbcType=VARCHAR},
+         #{e.poppay, jdbcType=INTEGER},#{e.popname, jdbcType=VARCHAR},#{e.snacksaram, jdbcType=INTEGER})
+      </foreach>
+   </insert>
+  
+</mapper>
