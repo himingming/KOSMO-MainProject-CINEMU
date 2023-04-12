@@ -1,4 +1,4 @@
-/* ¿¹¸Å, ÀüÃ¼¿µÈ­, »ó¿µ½Ã°£Ç¥ CSS */
+/* ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ã¼ï¿½ï¿½È­, ï¿½ó¿µ½Ã°ï¿½Ç¥ CSS */
 
 /* resvSelectForm */
 * {
@@ -8,17 +8,20 @@
 div {
 	display: block;
 }
+
 #tableSeat {
-   width: 50%;
-   border-collapse: collapse;
-   border-spacing: 0;
-   table-layout: fixed;
-   word-wrap: break-word;
-   word-break: keep-all;
+	width: 50%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	table-layout: fixed;
+	word-wrap: break-word;
+	word-break: keep-all;
 }
-#tableSeat button{
-    margin-bottom: 20%;
+
+#tableSeat button {
+	margin-bottom: 20%;
 }
+
 .inner-wrap {
 	width: 1250px;
 	margin: auto;
@@ -34,13 +37,13 @@ div {
 
 .quick-reserve h2 {
 	width: 100%;
-	border-bottom: 1px solid black; /* ¾ø¾Ö¸é ¾ÈµÊ!*/
+	border-bottom: 1px solid black; /* ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½Èµï¿½!*/
 	padding-bottom: 10px;
 	/* background-color: yellow;*/
 }
-/* ÀüÃ¼ Æ²*/
+/* ï¿½ï¿½Ã¼ Æ²*/
 
-/* ´Þ·Â, ¸®½ºÆ® ÀüÃ¼ Æ² */
+/* ï¿½Þ·ï¿½, ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ã¼ Æ² */
 .quick-reserve-biginner {
 	/*  background-color: green; */
 	width: 100%;
@@ -53,15 +56,15 @@ div {
 	padding: 0;
 	background-color: #fff;
 }
-/* ´Þ·Â, ¸®½ºÆ® ÀüÃ¼ Æ² */
-/* ÁÖ°£ ³¯Â¥ ½ÃÀÛ*/
+/* ï¿½Þ·ï¿½, ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ã¼ Æ² */
+/* ï¿½Ö°ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½*/
 .time-schedule {
 	width: 1250px;
 	/* height: 50px; 
   background-color: purple;  */
 }
 
-/* ÁÖ°£ ³¯Â¥ css ¾ðÁ¦³ª »èÁ¦°¡´É*/
+/* ï¿½Ö°ï¿½ ï¿½ï¿½Â¥ css ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 .time-schedule:after, .time-schedule:before {
 	content: '';
 	display: table
@@ -78,30 +81,34 @@ div {
 }
 
 .time-schedule .wrap {
-	border: 1px solid #d8d9db;
-	border-right: 0;
-	border-left: 0;
 	width: 1250px;
+	margin: 5px 0;
 }
 
-p #datevalue { /* ÀÛÀº ´Þ·Â */
+p #datevalue { /* ï¿½ï¿½ï¿½ï¿½ ï¿½Þ·ï¿½ */
 	float: right;
 }
 
 .quick-reserve-area {
 	width: 1250px;
 	background-color: white;
-	height: 480px;
+	height: 520px;
 	border: 1px solid #d8d9db;
 }
-/* ¿µÈ­ ¸®½ºÆ® ½ÃÀÛ  */
+
+/* ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½  */
 .quick-reserve-area .movie-choice {
 	position: relative;
 	float: left;
 	width: 350px;
-	height: 463px;
+	height: 100%;
 	padding: 0 20px 17px 20px;
 	border-right: 1px solid #d8d9db;
+}
+
+.quick-reserve-area .tit {
+	font-size: 25px;
+	margin: 20px 10px 0 30px;
 }
 
 .movie-btn {
@@ -109,20 +116,22 @@ p #datevalue { /* ÀÛÀº ´Þ·Â */
 	background-color: white;
 }
 
-.movie-btn:hover {
-	background-color: #263343;
-	color: #cacaca;
+.movie-btn #moviename {
+	display: block;
+	text-align: center;
+	margin-top: 5px;
 }
 
 ul {
 	list-style: none;
 }
-/* ¿µÈ­ ¸®½ºÆ® ³¡  */
-/* »ó¿µ°ü ¸®½ºÆ® ½ÃÀÛ  */
+
+/* ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½  */
+/* ï¿½ó¿µ°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½  */
 .quick-reserve-area .theater-choice {
 	float: left;
 	width: 310px;
-	height: 460px;
+	height: 100%;
 	padding: 0 20px 20px 20px;
 	border-right: 1px solid #d8d9db;
 	/* background-color: gray; */
@@ -134,7 +143,7 @@ ul {
 	align-items: center;
 	float: left;
 	gap: 10px;
-	border-right: 1px solid #ccc; /* ¼± Ãß°¡ */
+	border-right: 1px solid #ccc; /* ï¿½ï¿½ ï¿½ß°ï¿½ */
 	padding-right: 20px;
 	height: 300px;
 }
@@ -153,7 +162,7 @@ ul {
 	flex-wrap: wrap;
 	gap: 10px;
 	height: 200px;
-	flex-direction: row; /*¼öÆò Á¤·Ä*/
+	flex-direction: row; /*ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/
 	padding-left: 120px;
 }
 
@@ -173,19 +182,19 @@ ul {
 	background-color: #263343;
 	color: #cacaca;
 	transition: background-color 0.3s ease, color 0.3s ease;
-	/* hover »óÅÂ¿¡¼­ ¹è°æ»ö°ú ±ÛÀÚ»ö º¯È­¸¦ 0.3ÃÊ µ¿¾È ÀÚ¿¬½º·´°Ô ÀÏ¾î³ªµµ·Ï ÇÔ */
+	/* hover ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú»ï¿½ ï¿½ï¿½È­ï¿½ï¿½ 0.3ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¾î³ªï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ */
 }
 
 .place-btn:hover {
 	background-color: #263343;
 	color: #cacaca;
 	transition: background-color 0.3s ease, color 0.3s ease;
-	/* hover »óÅÂ¿¡¼­ ¹è°æ»ö°ú ±ÛÀÚ»ö º¯È­¸¦ 0.3ÃÊ µ¿¾È ÀÚ¿¬½º·´°Ô ÀÏ¾î³ªµµ·Ï ÇÔ */
+	/* hover ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú»ï¿½ ï¿½ï¿½È­ï¿½ï¿½ 0.3ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¾î³ªï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ */
 }
 
-/* »ó¿µ°ü ¸®½ºÆ® ³¡ */
+/* ï¿½ó¿µ°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ */
 
-/* ½Ã°£ ¸®½ºÆ® ½ÃÀÛ  */
+/* ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½  */
 .quick-reserve-area .time-choice {
 	float: right;
 	width: 548px;
@@ -246,9 +255,9 @@ ul {
 .time-choice .time-btn span {
 	display: inline-block;
 }
-/* ½Ã°£ ¸®½ºÆ® ³¡  */
+/* ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½  */
 
-/* ÆË¾÷Ã¢ ½ÃÀÛ*/
+/* ï¿½Ë¾ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½*/
 #document-modal {
 	background-color: rgba(0, 0, 0, 0.8);
 	justify-content: center;
@@ -305,13 +314,13 @@ ul {
 	color: white;
 	border: 1px solid #263343;
 }
-/* ÆË¾÷Ã¢ ³¡*/
+/* ï¿½Ë¾ï¿½Ã¢ ï¿½ï¿½*/
 #mimngres {
 	display: flex;
-	padding-top: 10px;
+	padding-top: 50px;
 }
 
-/*¸ðµç¿µÈ­ ÀüÃ¼±ØÀå Ä­ css*/
+/*ï¿½ï¿½ç¿µÈ­ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ Ä­ css*/
 .quick-reserve-area .view-area {
 	width: 100%;
 	padding: 0;
@@ -328,6 +337,8 @@ ul {
 	text-align: center;
 	border: 1px solid #ebebeb;
 	background-color: #fff;
+	position: relative;
+	margin-top: 75px;
 }
 
 .quick-reserve-area .view-area .choice-all strong {
@@ -346,7 +357,7 @@ ul {
 .quick-reserve-area .list-area .list {
 	display: block;
 	width: 100%;
-	height: 320px;
+	height: 250px;
 	margin-top: 10px;
 }
 
@@ -362,7 +373,7 @@ ul {
 	height: 100%;
 }
 
-/*»ó¿µ½Ã°£Ç¥*/
+/*ï¿½ó¿µ½Ã°ï¿½Ç¥*/
 input[type="date"] {
 	width: 21px;
 	zoom: 185%;
@@ -393,7 +404,8 @@ input[type="date"] {
 .timetable-wrap .mplist .tplace-btn .theater-li:hover {
 	border-bottom: 2px solid #263343;
 }
-.theater-li-on{
+
+.theater-li-on {
 	border-bottom: 2px solid #263343;
 }
 
@@ -412,7 +424,6 @@ input[type="date"] {
 .dayclick-btn-on {
 	border-bottom: 2px solid #263343;
 }
-
 
 .timetable-wrap .dayclick-btn.on {
 	border-bottom: 2px solid #263343;
@@ -444,10 +455,11 @@ input[type="date"] {
 	font-size: 25px;
 	margin-bottom: 0;
 }
-#mCSB_1_container{
-	    padding-left: 20px;
-	
+
+#mCSB_1_container {
+	padding-left: 20px;
 }
+
 #mCSB_container {
 	position: relative;
 	top: 0;
@@ -455,26 +467,28 @@ input[type="date"] {
 	margin-left: 20px;
 }
 
-.mCSB_container > span {
-    margin-left: 40px;
-    font-size: 23px;
-    font-weight: 700;
-    font-style: italic;
+.mCSB_container>span {
+	margin-left: 40px;
+	font-size: 23px;
+	font-weight: 700;
+	font-style: italic;
 }
 
-#listline{
-margin-left: 20px;
+#listline {
+	margin-left: 20px;
 }
-#imgsize{
-    margin-right: 30px;
-    width: 30px;
+
+#imgsize {
+	margin-right: 30px;
+	width: 30px;
 }
-#mstarttime{
-    text-align: center;
-    width: 120px;
-    margin: 3px;
-    padding: 5px;
-    margin-left: 80px;
-    border: 1px solid #ebebeb;
-    border-radius: 3px;
+
+#mstarttime {
+	text-align: center;
+	width: 120px;
+	margin: 3px;
+	padding: 5px;
+	margin-left: 80px;
+	border: 1px solid #ebebeb;
+	border-radius: 3px;
 }
